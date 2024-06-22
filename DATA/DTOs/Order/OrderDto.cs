@@ -7,6 +7,7 @@ namespace BackEndStructuer.DATA.DTOs
     {
         public string UserFullName { get; set; }
         public Guid PharmacyId { get; set; }
-        public List<DrugPharmacyDto> DrugPharmacies { get; set; } 
+        public List<DrugPharmacyDto> DrugPharmacies { get; set; }
+        public  decimal TotalPrice { get; set; }
     }
 }

@@ -65,7 +65,13 @@ public async Task<(OrderDto? order, string? error)> Create(OrderForm orderForm )
 
 public async Task<(List<OrderDto> orders, int? totalCount, string? error)> GetAll(OrderFilter filter)
     {
-        var (data, totalCount) = await _repositoryWrapper.Order.GetAll<OrderDto>(filter.PageNumber, filter.PageSize,filter.Deleted);
+        var (data, totalCount) = await _repositoryWrapper.Order.GetAll<OrderDto>(e=>filter.PharmacyId == e.PharmacyId , filter.PageNumber, filter.PageSize,filter.Deleted);
+      
+        foreach (var orderDto in data)
+        {
+          orderDto.TotalPrice = orderDto.DrugPharmacies.Sum(e=>e.UnitPrice * e.Quantity);  
+          
+        }
         return (data, totalCount, null);
     }
 
